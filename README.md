@@ -1,27 +1,27 @@
-# AI Autobuilder
+# AI Autobuilder (OpenAI preset)
 
-Self-healing builder that catches failures, asks an LLM for a minimal patch, applies it, and retries.
+This repo includes a GitHub Action that will automatically try to fix failed builds using OpenAI.
 
-## Quickstart (Local)
+## Setup
+
+1. Copy `tools/ai_autobuilder.py` and `.github/workflows/ai-autobuilder.yml` into your repo.
+2. In GitHub → Settings → Secrets and variables → Actions:
+   - **Secret**: `OPENAI_API_KEY = sk-...yourkey...`
+   - **Variable**: `BUILD_CMD = pio run` (or your build command)
+   - (Optional) **Variable**: `OPENAI_MODEL = gpt-4.1-mini`
+
+## Usage
+
+- On a failing build, the bot runs `ai_autobuilder.py`.
+- It proposes and applies a patch.
+- If successful, the build passes.
+- If not, a branch `fix/ai-autobuilder-<run_id>` is pushed.
+
+## Local run
 
 ```bash
-export BUILD_CMD="pio run"     # or make, gradle, etc.
-export PROVIDER=llama          # or openai
-./tools/ai_autobuilder.py
-```
-
-To use OpenAI:
-```bash
-export PROVIDER=openai
 export OPENAI_API_KEY=sk-...yourkey...
-export OPENAI_MODEL=gpt-4.1-mini
-./tools/ai_autobuilder.py
+export PROVIDER=openai
+export BUILD_CMD="pio run"
+python tools/ai_autobuilder.py
 ```
-
-## GitHub Actions
-
-The included workflow `.github/workflows/ai-autobuilder.yml` will attempt a fix when CI fails, and push a branch `fix/ai-autobuilder-<run_id>`.
-
-## Safety
-
-- Stores `.pre_ai_fix.patch` for reverting: `git apply -R .pre_ai_fix.patch`

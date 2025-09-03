@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os, sys, subprocess, json, tempfile, re, pathlib
 
-PROVIDER = os.getenv("PROVIDER", "llama")
+PROVIDER = os.getenv("PROVIDER", "openai")  # default to openai now
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 MAX_ATTEMPTS = int(os.getenv("AI_BUILDER_ATTEMPTS", "3"))
 BUILD_CMD = os.getenv("BUILD_CMD", "make -j")
@@ -70,25 +70,18 @@ def run_build():
     return p.wait()
 
 def call_llm(prompt):
-    if PROVIDER == "openai":
-        import requests
-        key = os.environ["OPENAI_API_KEY"]
-        url = "https://api.openai.com/v1/chat/completions"
-        payload = {
-            "model": OPENAI_MODEL,
-            "messages": [{"role":"user","content":prompt}],
-            "temperature": 0.2
-        }
-        r = requests.post(url, headers={"Authorization": f"Bearer {key}",
-                                        "Content-Type":"application/json"}, json=payload, timeout=180)
-        r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"]
-    else:
-        bin_path = os.environ.get("LLAMA_CPP_BIN", "llama-cli")
-        model = os.environ.get("MODEL_PATH", "models/Meta-Llama-3-8B-Instruct.Q4_K_M.gguf")
-        cmd = f'{bin_path} -m "{model}" -p {json.dumps(prompt)} -n 2048 --temp 0.2'
-        out = run(cmd, capture=True)
-        return out.stdout
+    import requests
+    key = os.environ["OPENAI_API_KEY"]
+    url = "https://api.openai.com/v1/chat/completions"
+    payload = {
+        "model": OPENAI_MODEL,
+        "messages": [{"role":"user","content":prompt}],
+        "temperature": 0.2
+    }
+    r = requests.post(url, headers={"Authorization": f"Bearer {key}",
+                                    "Content-Type":"application/json"}, json=payload, timeout=180)
+    r.raise_for_status()
+    return r.json()["choices"][0]["message"]["content"]
 
 def extract_unified_diff(text):
     m = re.search(r'(?ms)^--- [^\n]+\n\+\+\+ [^\n]+\n', text)

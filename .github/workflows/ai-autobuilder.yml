@@ -1,4 +1,4 @@
-name: AI Autobuilder
+name: AI Autobuilder (OpenAI)
 
 on:
   push:
@@ -36,21 +36,12 @@ jobs:
           bash -lc "$BUILD_CMD" | tee build.log
         continue-on-error: true
 
-      - name: Install llama.cpp (if used)
-        if: steps.build.outcome != 'success' && (vars.PROVIDER == 'llama' || !vars.PROVIDER)
-        run: |
-          sudo apt-get install -y cmake
-          git clone --depth=1 https://github.com/ggerganov/llama.cpp
-          cd llama.cpp && make -j
-          echo "LLAMA_CPP_BIN=$PWD/main" >> $GITHUB_ENV
-
-      - name: Attempt AI auto-fix
+      - name: Attempt AI auto-fix with OpenAI
         if: steps.build.outcome != 'success'
         env:
-          PROVIDER: ${{ vars.PROVIDER || 'llama' }}
+          PROVIDER: openai
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-4.1-mini' }}
-          MODEL_PATH: ${{ vars.MODEL_PATH || 'models/Llama-3-8B-Instruct.Q4_K_M.gguf' }}
           AI_BUILDER_ATTEMPTS: "2"
           BUILD_CMD: ${{ steps.build.outputs.BUILD_CMD }}
         run: |
