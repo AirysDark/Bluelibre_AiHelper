@@ -1,22 +1,15 @@
-name: Bluelibre_AiHelper
+# .github/workflows/ai_review.yml
+name: Bluelibre_Aihelper
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main  # Only run on PRs targeting master branch
-
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
-  ai_review:
+  review:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Bluelibre_AiHelper
-        uses: AirysDark/BlueLibre
+      - uses: actions/checkout@v4
+      - uses: ./.   # if the action lives in the same repo root
         with:
-          github_token: ${{ secrets.GAPI }}
-          google_api_key: ${{ secrets.GOOGLE_APII_KEY }}
+          github_token: ${{ github.token }}
+          google_api_key: ${{ secrets.GOOGLE_API_KEY }}         # optional
+          openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }} # optional
