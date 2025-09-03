@@ -20,7 +20,7 @@ Create repository secrets as needed:
 - `GOOGLE_API_KEY`
 - `OPENROUTER_API_KEY`
 
-Add a workflow like: `.github/workflows/ai_review.yml`
+Add a workflow like: `.github/workflows/Bluelibre_AiHelper.yml`
 
 ```yaml
 name: Bluelibre AI Code Review

@@ -1,4 +1,4 @@
-name: AI Code Review (example)
+name: Bluelibre_AiHelper (example)
 
 on:
   pull_request:
