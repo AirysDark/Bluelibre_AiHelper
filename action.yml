@@ -1,4 +1,4 @@
-name: "Champ AI Code Review"
+name: "Bluelibre AI Code Review"
 description: "Reviews PRs using Gemini (with OpenRouter fallback) and comments results."
 author: "AirysDark"
 branding:

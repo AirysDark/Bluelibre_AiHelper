@@ -1,4 +1,4 @@
-# Champ AI Code Review (Fixed)
+# Bluelibre AI Code Review (Fixed)
 
 A robust GitHub Action that posts an AI-powered review on Pull Requests using **Gemini** (if a Google API key is provided) and falls back to **OpenRouter** (if provided).
 
@@ -23,7 +23,7 @@ Create repository secrets as needed:
 Add a workflow like: `.github/workflows/ai_review.yml`
 
 ```yaml
-name: Champ AI Code Review
+name: Bluelibre AI Code Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
