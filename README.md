@@ -54,3 +54,4 @@ jobs:
 ## Notes
 - The action posts a single summary comment. If you want per-file comments, we can extend it to use the Reviews API and diff anchors.
 - If neither API key is provided, you'll get a minimal **LGTM** placeholder.
+.
