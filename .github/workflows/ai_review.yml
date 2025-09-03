@@ -1,19 +1,22 @@
-name: Champ AI Code Review
-
+name: Bluelibre_AiHelper
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - main  # Only run on PRs targeting master branch
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  review:
+  ai_review:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Champ AI Code Review
-        uses: ./.  # or AirysDark/Bluelibre_AiHelper@v1 after publishing
+      - name: Bluelibre_AiHelper
+        uses: AirysDark/BlueLibre
         with:
-          github_token: ${{ github.token }}
-          google_api_key: ${{ secrets.GOOGLE_API_KEY }}
-          openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          github_token: ${{ secrets.GAPI }}
+          google_api_key: ${{ secrets.GOOGLE_APII_KEY }}
