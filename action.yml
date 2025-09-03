@@ -30,4 +30,4 @@ runs:
     OPENROUTER_MODEL: ${{ inputs.openrouter_model }}
   args: []
 
-version: v1.0.0
+version: v1.0.1
