@@ -24,6 +24,9 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    GOOGLE_API_KEY: ${{ inputs.google_api_key }}
+    OPENROUTER_API_KEY: ${{ inputs.openrouter_api_key }}
     OPENROUTER_MODEL: ${{ inputs.openrouter_model }}
   args: []
 
