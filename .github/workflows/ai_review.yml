@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 name: Bluelibre AI Code Review
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+=======
+# .github/workflows/ai_review.yml
+name: Bluelibre_Aihelper
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+>>>>>>> af2f45236bc415f5efd9ac494fd64cd28d9a0502
 jobs:
   review:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -17,3 +26,11 @@ jobs:
           github_token: ${{ github.token }}
           google_api_key: ${{ secrets.GOOGLE_API_KEY }}
           openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+=======
+      - uses: actions/checkout@v4
+      - uses: ./.   # if the action lives in the same repo root
+        with:
+          github_token: ${{ github.token }}
+          google_api_key: ${{ secrets.GOOGLE_API_KEY }}         # optional
+          openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }} # optional
+>>>>>>> af2f45236bc415f5efd9ac494fd64cd28d9a0502
