@@ -1,23 +1,28 @@
 name: "Champ AI Code Review"
-description: "Uses Gemini AI (with OpenRouter fallback) to review PRs."
-author: "Tushar Nikam"
+description: "Reviews PRs using Gemini (with OpenRouter fallback) and comments results."
+author: "AirysDark"
 branding:
   icon: "check-circle"
   color: "blue"
+
 inputs:
   github_token:
-    description: "GitHub Token to access PR details"
+    description: "GitHub token (use github.token)"
     required: true
   google_api_key:
-    description: "Google Gemini API Key"
-    required: true
+    description: "Google Gemini API key"
+    required: false
   openrouter_api_key:
-    description: "OpenRouter API Key (fallback)"
-    required: true
+    description: "OpenRouter API key (fallback)"
+    required: false
+  openrouter_model:
+    description: "OpenRouter model (e.g., openai/gpt-4o-mini-2024-07-18)"
+    required: false
+    default: "openai/gpt-4o-mini-2024-07-18"
+
 runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    GITHUB_TOKEN: ${{ inputs.github_token }}
-    GOOGLE_API_KEY: ${{ inputs.google_api_key }}
-    OPENROUTER_API_KEY: ${{ inputs.openrouter_api_key }}
+    OPENROUTER_MODEL: ${{ inputs.openrouter_model }}
+  args: []

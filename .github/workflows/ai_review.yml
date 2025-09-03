@@ -1,4 +1,4 @@
-name: AI Code Review (example)
+name: Champ AI Code Review
 
 on:
   pull_request:
@@ -11,8 +11,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run AI Review
-        uses: ./.  # if testing locally in the same repo; replace with owner/repo@version when published
+      - name: Champ AI Code Review
+        uses: ./.  # or AirysDark/Bluelibre_AiHelper@v1 after publishing
         with:
           github_token: ${{ github.token }}
           google_api_key: ${{ secrets.GOOGLE_API_KEY }}
