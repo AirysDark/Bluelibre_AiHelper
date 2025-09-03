@@ -1,0 +1,19 @@
+name: Bluelibre_AiHelper
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bluelibre AI Code Review
+        uses: ./.  # or AirysDark/Bluelibre_AiHelper@v1 after publishing
+        with:
+          github_token: ${{ github.token }}
+          google_api_key: ${{ secrets.GOOGLE_API_KEY }}
+          openrouter_api_key: ${{ secrets.OPENROUTER_API_KEY }}
