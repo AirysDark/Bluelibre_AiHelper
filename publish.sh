@@ -29,7 +29,7 @@ fi
 RELEASE_DESCRIPTION="$1"
 
 # Get current version from latest tag
-CURRENT_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+CURRENT_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
 print_message "Current version: $CURRENT_VERSION"
 
 # Extract version numbers

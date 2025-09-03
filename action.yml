@@ -26,3 +26,5 @@ runs:
   env:
     OPENROUTER_MODEL: ${{ inputs.openrouter_model }}
   args: []
+
+version: v1.0.0
