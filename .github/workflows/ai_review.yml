@@ -18,5 +18,5 @@ jobs:
       - name: Run Champ AI Code Review
         uses: AirysDark/BlueLibre
         with:
-          github_token: ${{ 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 }}
-          google_api_key: ${{ AIzaSyBhmIwIJ72_gLUzr2M2flhV4zmg9w8NUiw }}
+          github_token: ${{ secrets.GAPI }}
+          google_api_key: ${{ secrets.GOOGLE_APII_KEY }}
